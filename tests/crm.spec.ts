@@ -1,3 +1,9 @@
+/**
+ * THIS IS A TEST FOR THE JIRA IMPORTER
+ */
+
+
+
 
 
 /*
@@ -21,4 +27,10 @@
  * Title: (Sample) User Registration
  * Acceptance Criteria:
  *  * Implement user registration functionality.
+ */
+
+// @TESTGEN - for AI generated scaffolding
+
+/**
+ * AC SHOULD BE ABOVE THE @TESTGEN MARKER
  */

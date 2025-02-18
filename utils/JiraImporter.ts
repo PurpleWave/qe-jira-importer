@@ -79,7 +79,7 @@ export function appendAcceptanceCriteriaToTestFile(testFilePath: string, issues:
     let testFileContent = fs.existsSync(testFilePath) ? fs.readFileSync(testFilePath, 'utf-8') : '';
 
     // Insert AC above @TESTGEN or at the bottom if not found
-    const testGenMarker = "@TESTGEN";
+    const testGenMarker = "// @TESTGEN";
 
     for (const issue of issues) {
         const formattedAC = formatAcceptanceCriteria(issue);
