@@ -15,39 +15,59 @@ export class FileAppender {
      * @param issues Jira issues with AC
      * @param testFilePath Path to the Playwright test file
      */
-    public static appendAcceptanceCriteria(issues: { key: string; title: string; acceptanceCriteria: string }[], testFilePath: string): void {
+    public static appendAcceptanceCriteria(
+        issues: { key: string; title: string; acceptanceCriteria: string }[],
+        testFilePath: string
+    ): void {
         if (issues.length === 0) {
             this.logger.log("info", "⚠️ No AC to append.");
             return;
         }
 
-        let testFileContent = fs.existsSync(testFilePath) ? fs.readFileSync(testFilePath, "utf-8") : "// Playwright test file\n";
+        let testFileContent = fs.existsSync(testFilePath)
+            ? fs.readFileSync(testFilePath, "utf-8")
+            : "// Playwright test file\n";
+
         const testGenMarker = "@TESTGEN";
-        let updatedContent = testFileContent;
         let addedIssues: string[] = [];
 
-        for (const issue of issues) {
+        // Sort issues numerically (CRM-1, CRM-2, etc.)
+        const sortedIssues = issues.sort((a, b) => {
+            const numA = parseInt(a.key.replace(/\D/g, ""), 10);
+            const numB = parseInt(b.key.replace(/\D/g, ""), 10);
+            return numA - numB;
+        });
+
+        // Format ACs in sorted order
+        const formattedACs = sortedIssues.map(issue => {
             const formattedAC = AcceptanceCriteriaFormatter.format(issue);
 
             // Prevent duplicates unless allow-duplicates flag is set
             if (!Config.ALLOW_DUPLICATES && testFileContent.includes(formattedAC.trim())) {
                 this.logger.log("debug", `⚠️ Skipping duplicate AC for ${issue.key}`);
-                continue;
+                return null;
             }
+
+            addedIssues.push(issue.key);
+            return formattedAC;
+        }).filter(Boolean); // Remove null entries from skipped duplicates
+
+        if (formattedACs.length > 0) {
+            let updatedContent = testFileContent;
 
             if (testFileContent.includes(testGenMarker)) {
                 const markerRegex = /(\/\/\s*@TESTGEN[^\n]*)/g;
-                updatedContent = testFileContent.replace(markerRegex, `${formattedAC}\n\n$1`);
+                updatedContent = testFileContent.replace(
+                    markerRegex,
+                    `${formattedACs.join("\n\n")}\n\n$1`
+                );
             } else {
-                updatedContent += `\n${formattedAC}`;
-            }            
-            addedIssues.push(issue.key);
-        }
+                updatedContent += `\n\n${formattedACs.join("\n\n")}`;
+            }
 
-        if (addedIssues.length > 0) {
             if (!Config.DRY_RUN) {
                 fs.writeFileSync(testFilePath, updatedContent, "utf-8");
-                this.logger.log("info", `✅ AC for ${addedIssues.length} issue(s) appended to ${testFilePath}`);
+                this.logger.log("info", `✅ AC for ${addedIssues.length} issue(s) appended to ${testFilePath} in numerical order.`);
             } else {
                 this.logger.log("info", "🔍 Dry Run: AC would be written to file.");
             }
