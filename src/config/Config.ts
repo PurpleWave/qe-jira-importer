@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import path from "path";
 
-// Load environment variables from .env file
-dotenv.config();
+// Force dotenv to load from the correct location
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 /**
  * Configuration manager that loads CLI arguments and environment variables.

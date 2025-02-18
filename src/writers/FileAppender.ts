@@ -36,10 +36,11 @@ export class FileAppender {
             }
 
             if (testFileContent.includes(testGenMarker)) {
-                updatedContent = testFileContent.replace(testGenMarker, `${formattedAC}\n${testGenMarker}`);
+                const markerRegex = /(\/\/\s*@TESTGEN[^\n]*)/g;
+                updatedContent = testFileContent.replace(markerRegex, `${formattedAC}\n\n$1`);
             } else {
                 updatedContent += `\n${formattedAC}`;
-            }
+            }            
             addedIssues.push(issue.key);
         }
 

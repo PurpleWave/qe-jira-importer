@@ -22,7 +22,7 @@ export class ProjectHandler {
 
         for (const project of Config.PROJECTS) {
             for (const board of Config.BOARDS) {
-                const issues = await JiraService.fetchIssues(project, board);
+                const issues = await JiraService.fetchIssuesByBoard(board);
                 allIssues = allIssues.concat(issues);
             }
         }
