@@ -1,8 +1,8 @@
-[2025-02-18T20:06:58.522Z] [INFO] 🛠 Starting AC extraction for projects: CRM on boards: 1
-[2025-02-18T20:06:58.524Z] [INFO] 🔍 Dry Run Mode: Disabled
-[2025-02-18T20:06:58.524Z] [INFO] 🔍 Fetching issues for Board: 1
-[2025-02-18T20:06:58.525Z] [DEBUG] 🧐 Fetching Board Details from: https://nicholaswilcox.atlassian.net/rest/agile/1.0/board/1
-[2025-02-18T20:06:59.192Z] [DEBUG] ✅ Board API Response: {
+[2025-02-18T21:23:06.889Z] [INFO] 🛠 Starting AC extraction for projects: CRM on boards: 1
+[2025-02-18T21:23:06.892Z] [INFO] 🔍 Dry Run Mode: Disabled
+[2025-02-18T21:23:06.893Z] [INFO] 🔍 Fetching issues for Board: 1
+[2025-02-18T21:23:06.893Z] [DEBUG] 🧐 Fetching Board Details from: https://nicholaswilcox.atlassian.net/rest/agile/1.0/board/1
+[2025-02-18T21:23:07.878Z] [DEBUG] ✅ Board API Response: {
   "id": 1,
   "self": "https://nicholaswilcox.atlassian.net/rest/agile/1.0/board/1",
   "name": "CRM board",
@@ -18,9 +18,9 @@
   },
   "isPrivate": false
 }
-[2025-02-18T20:06:59.192Z] [INFO] 📌 Board 1 detected as SIMPLE
-[2025-02-18T20:06:59.192Z] [DEBUG] 🧐 Fetching Issues from Kanban Board: https://nicholaswilcox.atlassian.net/rest/agile/1.0/board/1/issue
-[2025-02-18T20:06:59.513Z] [DEBUG] ✅ Issues API Response: {
+[2025-02-18T21:23:07.878Z] [INFO] 📌 Board 1 detected as SIMPLE
+[2025-02-18T21:23:07.879Z] [DEBUG] 🧐 Fetching Issues from Kanban Board: https://nicholaswilcox.atlassian.net/rest/agile/1.0/board/1/issue
+[2025-02-18T21:23:09.156Z] [DEBUG] ✅ Issues API Response: {
   "expand": "schema,names",
   "startAt": 0,
   "maxResults": 50,
@@ -1305,6 +1305,6 @@
     }
   ]
 }
-[2025-02-18T20:06:59.514Z] [INFO] 📊 Total Jira issues extracted: 6
-[2025-02-18T20:06:59.515Z] [INFO] ✅ AC for 6 issue(s) appended to /home/wilcoxn/workCode/BDD-importer/src/tests/crm.spec.ts in numerical order.
-[2025-02-18T20:06:59.515Z] [INFO] ✅ AC extraction complete!
+[2025-02-18T21:23:09.156Z] [INFO] 📊 Total Jira issues extracted: 6
+[2025-02-18T21:23:09.161Z] [INFO] ✅ AC for 6 issue(s) appended to /home/wilcoxn/workCode/BDD-importer/src/tests/crm.spec.ts in numerical order.
+[2025-02-18T21:23:09.162Z] [INFO] ✅ AC extraction complete!

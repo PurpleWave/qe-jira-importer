@@ -1,0 +1,280 @@
+{
+  "id": "725f5ccf-655a-48ed-8dc4-b218bf6af656",
+  "type": "directory",
+  "name": "BDD-importer",
+  "path": "",
+  "children": [
+    {
+      "id": "99fdb22f-ee9d-4ca1-ad85-e9724743b255",
+      "type": "file",
+      "name": ".env",
+      "path": ".env",
+      "aiDescription": null
+    },
+    {
+      "id": "28629763-9a16-488c-920e-2860205dd9df",
+      "type": "directory",
+      "name": ".github",
+      "path": ".github",
+      "children": [
+        {
+          "id": "13f2a662-49cb-4cd0-a135-8166aab76276",
+          "type": "directory",
+          "name": "workflows",
+          "path": ".github/workflows",
+          "children": [
+            {
+              "id": "ac9d8c34-9b1b-4d74-8aed-662aa742b2f0",
+              "type": "file",
+              "name": "playwright.yml",
+              "path": ".github/workflows/playwright.yml",
+              "aiDescription": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6ed77ffd-5a1b-405d-a0ad-eb3eba8b4e6f",
+      "type": "file",
+      "name": ".gitignore",
+      "path": ".gitignore",
+      "aiDescription": null
+    },
+    {
+      "id": "70aa0864-8443-4e64-be43-fe34eef3a061",
+      "type": "file",
+      "name": "README.md",
+      "path": "README.md",
+      "aiDescription": null
+    },
+    {
+      "id": "165a3e2b-8f8d-4940-ae61-90d1eac41bed",
+      "type": "file",
+      "name": "package-lock.json",
+      "path": "package-lock.json",
+      "aiDescription": null
+    },
+    {
+      "id": "3baa32ae-5731-4d49-a8fe-5bf80e7e44d6",
+      "type": "file",
+      "name": "package.json",
+      "path": "package.json",
+      "aiDescription": null
+    },
+    {
+      "id": "b0d0953b-4b99-419d-9c8c-568d892962eb",
+      "type": "file",
+      "name": "playwright.config.ts",
+      "path": "playwright.config.ts",
+      "aiDescription": null
+    },
+    {
+      "id": "9bc2ed88-4bee-4a1f-8ccd-f9a33ba07804",
+      "type": "file",
+      "name": "scanProject.ts",
+      "path": "scanProject.ts",
+      "aiDescription": null
+    },
+    {
+      "id": "d8ed8391-0f99-4a16-adb9-4f9781144960",
+      "type": "directory",
+      "name": "src",
+      "path": "src",
+      "children": [
+        {
+          "id": "2b19964e-d82e-4513-9e26-d1c83b0331aa",
+          "type": "directory",
+          "name": "config",
+          "path": "src/config",
+          "children": [
+            {
+              "id": "c15c295e-002f-4f3d-a8da-454c642295dc",
+              "type": "file",
+              "name": "Config.ts",
+              "path": "src/config/Config.ts",
+              "aiDescription": null
+            }
+          ]
+        },
+        {
+          "id": "b119e4c0-c160-4632-8639-4153213d9476",
+          "type": "directory",
+          "name": "formatters",
+          "path": "src/formatters",
+          "children": [
+            {
+              "id": "29d14d4b-7039-4f3c-a67e-3e5aa9dbccbe",
+              "type": "file",
+              "name": "AcceptanceCriteriaFormatter.ts",
+              "path": "src/formatters/AcceptanceCriteriaFormatter.ts",
+              "aiDescription": null
+            }
+          ]
+        },
+        {
+          "id": "65336193-14b3-4383-95eb-a849b476f5b9",
+          "type": "directory",
+          "name": "logging",
+          "path": "src/logging",
+          "children": [
+            {
+              "id": "ea35c7e7-ce0d-46ef-b865-b27a9b882e28",
+              "type": "file",
+              "name": "Logger.ts",
+              "path": "src/logging/Logger.ts",
+              "aiDescription": null
+            }
+          ]
+        },
+        {
+          "id": "ffd925bd-c593-4021-9704-4cf63a61f89d",
+          "type": "directory",
+          "name": "logs",
+          "path": "src/logs",
+          "children": [
+            {
+              "id": "e1d69acb-6a95-427c-a2d9-ce8279b93a3a",
+              "type": "file",
+              "name": "ac_import_2025-02-18T21-23-06-590Z.log",
+              "path": "src/logs/ac_import_2025-02-18T21-23-06-590Z.log",
+              "aiDescription": null
+            }
+          ]
+        },
+        {
+          "id": "e53624b9-219c-408b-af2a-52968855bc81",
+          "type": "file",
+          "name": "main.ts",
+          "path": "src/main.ts",
+          "aiDescription": null
+        },
+        {
+          "id": "989b8342-f74b-4b2e-9a70-6a947062378a",
+          "type": "directory",
+          "name": "services",
+          "path": "src/services",
+          "children": [
+            {
+              "id": "9488f931-f450-4c9a-bf56-5e97d427b372",
+              "type": "file",
+              "name": "JiraService.ts",
+              "path": "src/services/JiraService.ts",
+              "aiDescription": null
+            },
+            {
+              "id": "bcd039b5-a9b8-457d-a58e-dfed2745e103",
+              "type": "file",
+              "name": "ProjectHandler.ts",
+              "path": "src/services/ProjectHandler.ts",
+              "aiDescription": null
+            }
+          ]
+        },
+        {
+          "id": "62b2fdda-8aa9-450b-9ea5-098e1ab3752f",
+          "type": "directory",
+          "name": "tests",
+          "path": "src/tests",
+          "children": [
+            {
+              "id": "2d96afec-6992-43b6-a5e5-d247dbab66d7",
+              "type": "file",
+              "name": "crm.spec.ts",
+              "path": "src/tests/crm.spec.ts",
+              "aiDescription": null
+            },
+            {
+              "id": "b2a2537f-77d0-4ee8-9b86-02c681bd5513",
+              "type": "file",
+              "name": "example.spec.ts",
+              "path": "src/tests/example.spec.ts",
+              "aiDescription": null
+            }
+          ]
+        },
+        {
+          "id": "cc84049d-c5f3-47d3-ad9e-eb9844ff3a5f",
+          "type": "directory",
+          "name": "writers",
+          "path": "src/writers",
+          "children": [
+            {
+              "id": "8dad624f-d015-4396-919a-875def727632",
+              "type": "file",
+              "name": "FileAppender.ts",
+              "path": "src/writers/FileAppender.ts",
+              "aiDescription": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36e75168-2f4b-4313-a2e0-898ae8c3d619",
+      "type": "file",
+      "name": "testJiraAC.ts",
+      "path": "testJiraAC.ts",
+      "aiDescription": null
+    },
+    {
+      "id": "7a024f9b-080b-4a38-916d-fbf2f7a614f1",
+      "type": "directory",
+      "name": "tests",
+      "path": "tests",
+      "children": [
+        {
+          "id": "ee498b33-2b92-4ec1-b910-0b1489a6e75f",
+          "type": "file",
+          "name": "crm.spec.ts",
+          "path": "tests/crm.spec.ts",
+          "aiDescription": "This is a test for the CRM module. This is an example of the AI description text that would be used. Here is the second line of the description. Here is the third line of the description. /"
+        },
+        {
+          "id": "91804053-9c6a-42d3-92fe-dce022169c44",
+          "type": "file",
+          "name": "example.spec.ts",
+          "path": "tests/example.spec.ts",
+          "aiDescription": null
+        }
+      ]
+    },
+    {
+      "id": "bfc2c000-ab55-4bc8-8fcd-d881f123f9d4",
+      "type": "directory",
+      "name": "tests-examples",
+      "path": "tests-examples",
+      "children": [
+        {
+          "id": "a5bcb239-4fca-45ba-8270-9f591597f0d8",
+          "type": "file",
+          "name": "demo-todo-app.spec.ts",
+          "path": "tests-examples/demo-todo-app.spec.ts",
+          "aiDescription": null
+        }
+      ]
+    },
+    {
+      "id": "78463271-05b0-434c-90d2-2b77b43c8221",
+      "type": "file",
+      "name": "tsconfig.json",
+      "path": "tsconfig.json",
+      "aiDescription": null
+    },
+    {
+      "id": "585671a0-ac4a-47e2-b48a-531ef8dd1cc6",
+      "type": "directory",
+      "name": "utils",
+      "path": "utils",
+      "children": [
+        {
+          "id": "8eaa095c-6821-46d4-b5c0-c7c315113fae",
+          "type": "file",
+          "name": "JiraImporter.ts",
+          "path": "utils/JiraImporter.ts",
+          "aiDescription": null
+        }
+      ]
+    }
+  ]
+}
