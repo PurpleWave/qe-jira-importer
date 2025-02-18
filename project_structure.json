@@ -95,11 +95,9 @@
       "path": "scanProject.ts",
       "aiDescription": null,
       "imports": [
-        "uuid",
+        "fs",
         "path",
-        "fs",
-        "fs",
-        "fs"
+        "uuid"
       ]
     },
     {

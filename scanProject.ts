@@ -49,37 +49,25 @@ function extractAIDescription(filePath: string): string | null {
 }
 
 // Extract imported file paths from TypeScript/JavaScript files
+
 function extractImports(filePath: string): string[] {
     const content = fs.readFileSync(filePath, 'utf-8');
-    
-    // Normalize multi-line imports into a single line
-    const normalizedContent = content.replace(/\n/g, ' ');
 
-    // Updated regex to capture:
-    // 1. Named imports: import { join } from "path";
-    // 2. Default imports: import fs from "fs";
-    // 3. Mixed imports: import fs, { readFileSync } from "fs";
-    // 4. Star imports: import * as fs from "fs";
-    // 5. Require imports: const fs = require("fs");
-    const importRegex = /import\s+(?:([\w*]+)(?:\s*,\s*)?)?(?:{([^}]+)})?\s+from\s+["']([^"']+)["']|require\(["']([^"']+)["']\)/g;
+    // Capture all import variations:
+    const importRegex = /import\s+(?:\* as\s+)?(?:[\w{},\s]+)\s+from\s+["']([^"']+)["']|require\(["']([^"']+)["']\)/g;
     
-    const imports: string[] = [];
-
+    const imports: Set<string> = new Set(); // Use a Set to prevent duplicates
     let match;
-    while ((match = importRegex.exec(normalizedContent)) !== null) {
-        const [, defaultImport, namedImports, fromPath, requirePath] = match;
-        const resolvedImport = fromPath || requirePath;
-        
-        if (resolvedImport) {
-            imports.push(resolvedImport);
+
+    while ((match = importRegex.exec(content)) !== null) {
+        const resolvedImport = match[1] || match[2]; // Match either import or require
+        if (resolvedImport && resolvedImport !== "module") { // Exclude false positives
+            imports.add(resolvedImport);
         }
     }
 
-    return imports;
+    return Array.from(imports); // Convert back to array
 }
-
-
-
 
 
 
@@ -125,13 +113,13 @@ function scanDirectory(dirPath: string, previous: DirectoryNode | null, root: st
         id: existingDirectory?.id || uuidv4(),
         type: 'directory',
         name: path.basename(dirPath),
-        path: path.relative(root, dirPath),
+        path: path.relative(root, dirPath).replace(/\\/g, "/"), // Normalize paths
         children: [],
     };
 
     for (const item of items) {
         const fullPath = path.join(dirPath, item.name);
-        const relativePath = path.relative(root, fullPath);
+        const relativePath = path.relative(root, fullPath).replace(/\\/g, "/"); // Normalize paths
 
         if (item.isDirectory()) {
             if (!ignoredDirs.has(item.name)) {
@@ -146,7 +134,7 @@ function scanDirectory(dirPath: string, previous: DirectoryNode | null, root: st
                 name: item.name,
                 path: relativePath,
                 aiDescription: extractAIDescription(fullPath),
-                imports: extractImports(fullPath),
+                imports: extractImports(fullPath), // Keep one entry per file
             });
         }
     }
@@ -207,4 +195,4 @@ resolveImports(projectStructure); // 🔥 Call resolveImports() to update refere
 // Save updated structure
 fs.writeFileSync(JSON_FILE_PATH, JSON.stringify(projectStructure, null, 2));
 
-console.log('Updated project structure saved to', JSON_FILE_PATH);
+console.log('✅ Updated project structure saved to', JSON_FILE_PATH);
