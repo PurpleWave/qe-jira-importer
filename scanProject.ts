@@ -8,6 +8,7 @@ interface FileNode {
     name: string;
     path: string;
     aiDescription: string | null;
+    imports: (string | { id: string })[];
 }
 
 interface DirectoryNode {
@@ -39,13 +40,32 @@ function extractAIDescription(filePath: string): string | null {
             if (trimmed.startsWith('*') || trimmed.startsWith('//')) {
                 descriptionLines.push(trimmed.replace(/^\*\s*|\/\/\s*/g, ''));
             } else {
-                break; // Stop capturing if the line is not a comment
+                break;
             }
         }
     }
 
     return descriptionLines.length > 0 ? descriptionLines.join(' ').trim() : null;
 }
+
+// Extract imported file paths from TypeScript/JavaScript files
+function extractImports(filePath: string): string[] {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const importRegex = /import\s+.*?['"](.+?)['"]|require\(['"](.+?)['"]\)/g;
+    const imports: string[] = [];
+
+    let match;
+    while ((match = importRegex.exec(content)) !== null) {
+        const importPath = match[1] || match[2];
+
+        if (importPath) {
+            imports.push(importPath); // Always record imports, even if they don't resolve
+        }
+    }
+
+    return imports;
+}
+
 
 // Load previous scan results
 function loadPreviousStructure(): DirectoryNode | null {
@@ -59,14 +79,19 @@ function loadPreviousStructure(): DirectoryNode | null {
     return null;
 }
 
-// Find a file or directory by its name in previous structure
-function findNodeByName(name: string, previous: DirectoryNode | null): FileNode | DirectoryNode | null {
-    if (!previous) return null;
-    
-    for (const child of previous.children) {
-        if (child.name === name) return child;
+// Type guard to check if a node is a directory
+function isDirectoryNode(node: FileNode | DirectoryNode | null): node is DirectoryNode {
+    return node !== null && node.type === 'directory';
+}
+
+// Find a node by its full relative path
+function findNodeByPath(relativePath: string, node: DirectoryNode): FileNode | DirectoryNode | null {
+    if (node.path === relativePath) return node;
+
+    for (const child of node.children) {
+        if (child.path === relativePath) return child;
         if (child.type === 'directory') {
-            const found = findNodeByName(name, child);
+            const found = findNodeByPath(relativePath, child);
             if (found) return found;
         }
     }
@@ -77,10 +102,11 @@ function findNodeByName(name: string, previous: DirectoryNode | null): FileNode 
 function scanDirectory(dirPath: string, previous: DirectoryNode | null, root: string = dirPath): DirectoryNode {
     const items = fs.readdirSync(dirPath, { withFileTypes: true });
 
-    const existingNode = previous ? findNodeByName(path.basename(dirPath), previous) as DirectoryNode : null;
+    const existingNode = previous ? findNodeByPath(path.relative(root, dirPath), previous) : null;
+    const existingDirectory = isDirectoryNode(existingNode) ? existingNode : null;
 
     const structure: DirectoryNode = {
-        id: existingNode?.id || uuidv4(),
+        id: existingDirectory?.id || uuidv4(),
         type: 'directory',
         name: path.basename(dirPath),
         path: path.relative(root, dirPath),
@@ -96,7 +122,7 @@ function scanDirectory(dirPath: string, previous: DirectoryNode | null, root: st
                 structure.children.push(scanDirectory(fullPath, previous, root));
             }
         } else {
-            let existingFile = previous ? findNodeByName(item.name, previous) as FileNode : null;
+            let existingFile = previous ? findNodeByPath(relativePath, previous) as FileNode : null;
 
             structure.children.push({
                 id: existingFile?.id || uuidv4(),
@@ -104,6 +130,7 @@ function scanDirectory(dirPath: string, previous: DirectoryNode | null, root: st
                 name: item.name,
                 path: relativePath,
                 aiDescription: extractAIDescription(fullPath),
+                imports: extractImports(fullPath),
             });
         }
     }
@@ -115,6 +142,41 @@ function scanDirectory(dirPath: string, previous: DirectoryNode | null, root: st
 const previousStructure = loadPreviousStructure();
 const projectRoot = process.cwd();
 const projectStructure = scanDirectory(projectRoot, previousStructure);
+
+// Create a map of files by their relative path for easy lookup
+const fileMap: { [key: string]: string } = {};
+function mapFiles(node: DirectoryNode) {
+    for (const child of node.children) {
+        if (child.type === 'file') {
+            fileMap[child.path.replace(/\.(ts|js|tsx|jsx)$/, '')] = child.id;
+        } else {
+            mapFiles(child);
+        }
+    }
+}
+mapFiles(projectStructure);
+
+// Resolve imports to UUIDs
+function resolveImports(node: DirectoryNode) {
+    for (const child of node.children) {
+        if (child.type === 'file') {
+            child.imports = child.imports.map((importPath) => {
+                if (typeof importPath !== 'string') return importPath;
+
+                // Normalize import path
+                const resolvedPath = path
+                    .normalize(path.join(path.dirname(child.path), importPath))
+                    .replace(/\\/g, '/') // Normalize Windows paths
+                    .replace(/\.(ts|js|tsx|jsx)$/, ''); // Remove file extensions
+
+                return fileMap[resolvedPath] ? { id: fileMap[resolvedPath] } : importPath;
+            });
+        } else {
+            resolveImports(child);
+        }
+    }
+}
+resolveImports(projectStructure); // 🔥 Call resolveImports() to update references!
 
 // Save updated structure
 fs.writeFileSync(JSON_FILE_PATH, JSON.stringify(projectStructure, null, 2));

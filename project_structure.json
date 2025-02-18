@@ -1,278 +1,396 @@
 {
-  "id": "725f5ccf-655a-48ed-8dc4-b218bf6af656",
+  "id": "4cec8c8a-41e3-41a6-bce0-27a99f24d1e4",
   "type": "directory",
   "name": "BDD-importer",
   "path": "",
   "children": [
     {
-      "id": "99fdb22f-ee9d-4ca1-ad85-e9724743b255",
+      "id": "2de24aba-d2ec-4d5f-8dd7-eeebadf3c647",
       "type": "file",
       "name": ".env",
       "path": ".env",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": []
     },
     {
-      "id": "28629763-9a16-488c-920e-2860205dd9df",
+      "id": "73bc4318-4316-4a6d-bad3-98a038926c11",
       "type": "directory",
       "name": ".github",
       "path": ".github",
       "children": [
         {
-          "id": "13f2a662-49cb-4cd0-a135-8166aab76276",
+          "id": "4f8efba5-34a8-4650-99cc-3f3f9c7083df",
           "type": "directory",
           "name": "workflows",
           "path": ".github/workflows",
           "children": [
             {
-              "id": "ac9d8c34-9b1b-4d74-8aed-662aa742b2f0",
+              "id": "5faf8eb9-d992-409c-85cd-39e1c82a0d1d",
               "type": "file",
               "name": "playwright.yml",
               "path": ".github/workflows/playwright.yml",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": []
             }
           ]
         }
       ]
     },
     {
-      "id": "6ed77ffd-5a1b-405d-a0ad-eb3eba8b4e6f",
+      "id": "1a7c00f4-e27b-422a-ac40-33e6369696a6",
       "type": "file",
       "name": ".gitignore",
       "path": ".gitignore",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": []
     },
     {
-      "id": "70aa0864-8443-4e64-be43-fe34eef3a061",
+      "id": "92d70013-dd5d-456e-a95c-e5994f7ed524",
       "type": "file",
       "name": "README.md",
       "path": "README.md",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": []
     },
     {
-      "id": "165a3e2b-8f8d-4940-ae61-90d1eac41bed",
+      "id": "e0686373-1f03-471a-95e2-d7c700901b16",
       "type": "file",
       "name": "package-lock.json",
       "path": "package-lock.json",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": []
     },
     {
-      "id": "3baa32ae-5731-4d49-a8fe-5bf80e7e44d6",
+      "id": "b9c251e4-37ee-43c7-a120-cd011db2f53f",
       "type": "file",
       "name": "package.json",
       "path": "package.json",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": []
     },
     {
-      "id": "b0d0953b-4b99-419d-9c8c-568d892962eb",
+      "id": "3536e378-ed42-4803-bacf-d61fe15889e8",
       "type": "file",
       "name": "playwright.config.ts",
       "path": "playwright.config.ts",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": [
+        "@playwright/test",
+        "dotenv",
+        "path"
+      ]
     },
     {
-      "id": "9bc2ed88-4bee-4a1f-8ccd-f9a33ba07804",
+      "id": "bfd6796b-08de-4970-b9ed-f90a9b7606b3",
+      "type": "file",
+      "name": "project_structure.json",
+      "path": "project_structure.json",
+      "aiDescription": null,
+      "imports": []
+    },
+    {
+      "id": "e7e6bbea-33ff-44b3-b138-ece28268f674",
       "type": "file",
       "name": "scanProject.ts",
       "path": "scanProject.ts",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": [
+        "fs",
+        "path",
+        "uuid"
+      ]
     },
     {
-      "id": "d8ed8391-0f99-4a16-adb9-4f9781144960",
+      "id": "bf10934c-5b5b-4f04-8134-dd80e98f7481",
       "type": "directory",
       "name": "src",
       "path": "src",
       "children": [
         {
-          "id": "2b19964e-d82e-4513-9e26-d1c83b0331aa",
+          "id": "d7cc83a9-8407-47d0-add6-d5b66ca6c6f4",
           "type": "directory",
           "name": "config",
           "path": "src/config",
           "children": [
             {
-              "id": "c15c295e-002f-4f3d-a8da-454c642295dc",
+              "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f",
               "type": "file",
               "name": "Config.ts",
               "path": "src/config/Config.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": [
+                "dotenv",
+                "yargs",
+                "yargs/helpers",
+                "path"
+              ]
             }
           ]
         },
         {
-          "id": "b119e4c0-c160-4632-8639-4153213d9476",
+          "id": "4fb6b61e-7f0b-469f-a769-8bd666e552fd",
           "type": "directory",
           "name": "formatters",
           "path": "src/formatters",
           "children": [
             {
-              "id": "29d14d4b-7039-4f3c-a67e-3e5aa9dbccbe",
+              "id": "7ecef550-ed79-42ca-aa39-01b1f1bbee3c",
               "type": "file",
               "name": "AcceptanceCriteriaFormatter.ts",
               "path": "src/formatters/AcceptanceCriteriaFormatter.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": []
             }
           ]
         },
         {
-          "id": "65336193-14b3-4383-95eb-a849b476f5b9",
+          "id": "db9cae5b-f110-4036-8a85-5569ef9cde52",
           "type": "directory",
           "name": "logging",
           "path": "src/logging",
           "children": [
             {
-              "id": "ea35c7e7-ce0d-46ef-b865-b27a9b882e28",
+              "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8",
               "type": "file",
               "name": "Logger.ts",
               "path": "src/logging/Logger.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": [
+                "fs",
+                "path",
+                "chalk",
+                {
+                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                }
+              ]
             }
           ]
         },
         {
-          "id": "ffd925bd-c593-4021-9704-4cf63a61f89d",
+          "id": "ffc9b0c5-32ed-4400-8959-c6c0ac47290e",
           "type": "directory",
           "name": "logs",
           "path": "src/logs",
           "children": [
             {
-              "id": "e1d69acb-6a95-427c-a2d9-ce8279b93a3a",
+              "id": "0163c6b5-4e4c-43e5-ab78-d55fa57dcc5a",
               "type": "file",
               "name": "ac_import_2025-02-18T21-23-06-590Z.log",
               "path": "src/logs/ac_import_2025-02-18T21-23-06-590Z.log",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": []
             }
           ]
         },
         {
-          "id": "e53624b9-219c-408b-af2a-52968855bc81",
+          "id": "b1d42dc5-d869-4ae4-9391-56742bd703b3",
           "type": "file",
           "name": "main.ts",
           "path": "src/main.ts",
-          "aiDescription": null
+          "aiDescription": null,
+          "imports": [
+            {
+              "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+            },
+            {
+              "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+            },
+            {
+              "id": "eb052b9f-d0b5-4091-b936-433c8e20f15b"
+            },
+            {
+              "id": "249d8f1a-31c2-48bf-bff1-6ccd1cd87038"
+            },
+            "path"
+          ]
         },
         {
-          "id": "989b8342-f74b-4b2e-9a70-6a947062378a",
+          "id": "6d44f36c-2f46-42c2-b969-d642c1ee0b71",
           "type": "directory",
           "name": "services",
           "path": "src/services",
           "children": [
             {
-              "id": "9488f931-f450-4c9a-bf56-5e97d427b372",
+              "id": "8195cd11-bf4a-4f5b-8ebc-d4c42f477ff0",
               "type": "file",
               "name": "JiraService.ts",
               "path": "src/services/JiraService.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": [
+                "axios",
+                "https",
+                {
+                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                },
+                {
+                  "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+                }
+              ]
             },
             {
-              "id": "bcd039b5-a9b8-457d-a58e-dfed2745e103",
+              "id": "eb052b9f-d0b5-4091-b936-433c8e20f15b",
               "type": "file",
               "name": "ProjectHandler.ts",
               "path": "src/services/ProjectHandler.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": [
+                {
+                  "id": "8195cd11-bf4a-4f5b-8ebc-d4c42f477ff0"
+                },
+                {
+                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                },
+                {
+                  "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+                }
+              ]
             }
           ]
         },
         {
-          "id": "62b2fdda-8aa9-450b-9ea5-098e1ab3752f",
+          "id": "22fc9356-287c-49ae-af09-0a39d654825f",
           "type": "directory",
           "name": "tests",
           "path": "src/tests",
           "children": [
             {
-              "id": "2d96afec-6992-43b6-a5e5-d247dbab66d7",
+              "id": "6b5a39df-0e63-4e2b-8fdf-98102384ff20",
               "type": "file",
               "name": "crm.spec.ts",
               "path": "src/tests/crm.spec.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": []
             },
             {
-              "id": "b2a2537f-77d0-4ee8-9b86-02c681bd5513",
+              "id": "2ddb6170-8ccf-49ce-ae26-5540a699089c",
               "type": "file",
               "name": "example.spec.ts",
               "path": "src/tests/example.spec.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": [
+                "@playwright/test"
+              ]
             }
           ]
         },
         {
-          "id": "cc84049d-c5f3-47d3-ad9e-eb9844ff3a5f",
+          "id": "c6fb1764-97f7-4643-bacc-87d33f89ae7a",
           "type": "directory",
           "name": "writers",
           "path": "src/writers",
           "children": [
             {
-              "id": "8dad624f-d015-4396-919a-875def727632",
+              "id": "249d8f1a-31c2-48bf-bff1-6ccd1cd87038",
               "type": "file",
               "name": "FileAppender.ts",
               "path": "src/writers/FileAppender.ts",
-              "aiDescription": null
+              "aiDescription": null,
+              "imports": [
+                "fs",
+                "path",
+                {
+                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                },
+                {
+                  "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+                },
+                {
+                  "id": "7ecef550-ed79-42ca-aa39-01b1f1bbee3c"
+                }
+              ]
             }
           ]
         }
       ]
     },
     {
-      "id": "36e75168-2f4b-4313-a2e0-898ae8c3d619",
+      "id": "2825fb73-7a26-45fb-a474-660ea44b5079",
       "type": "file",
       "name": "testJiraAC.ts",
       "path": "testJiraAC.ts",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": [
+        {
+          "id": "6f878c3d-acee-432b-9e1c-1c4ceff19adf"
+        },
+        "fs",
+        "path"
+      ]
     },
     {
-      "id": "7a024f9b-080b-4a38-916d-fbf2f7a614f1",
+      "id": "517936c1-a37c-453c-8603-ce5d11c27580",
       "type": "directory",
       "name": "tests",
       "path": "tests",
       "children": [
         {
-          "id": "ee498b33-2b92-4ec1-b910-0b1489a6e75f",
+          "id": "2f92a053-872a-43be-82d1-f5292b49c6d9",
           "type": "file",
           "name": "crm.spec.ts",
           "path": "tests/crm.spec.ts",
-          "aiDescription": "This is a test for the CRM module. This is an example of the AI description text that would be used. Here is the second line of the description. Here is the third line of the description. /"
+          "aiDescription": "This is a test for the CRM module. This is an example of the AI description text that would be used. Here is the second line of the description. Here is the third line of the description. /",
+          "imports": []
         },
         {
-          "id": "91804053-9c6a-42d3-92fe-dce022169c44",
+          "id": "86629301-1311-453d-9fe5-70f6e91ce743",
           "type": "file",
           "name": "example.spec.ts",
           "path": "tests/example.spec.ts",
-          "aiDescription": null
+          "aiDescription": null,
+          "imports": [
+            "@playwright/test"
+          ]
         }
       ]
     },
     {
-      "id": "bfc2c000-ab55-4bc8-8fcd-d881f123f9d4",
+      "id": "5aa02c48-af19-4332-b659-46bc6a76f965",
       "type": "directory",
       "name": "tests-examples",
       "path": "tests-examples",
       "children": [
         {
-          "id": "a5bcb239-4fca-45ba-8270-9f591597f0d8",
+          "id": "99ee5eae-8f0a-4e5e-8461-ac488629059d",
           "type": "file",
           "name": "demo-todo-app.spec.ts",
           "path": "tests-examples/demo-todo-app.spec.ts",
-          "aiDescription": null
+          "aiDescription": null,
+          "imports": [
+            "@playwright/test"
+          ]
         }
       ]
     },
     {
-      "id": "78463271-05b0-434c-90d2-2b77b43c8221",
+      "id": "fc9fabad-9dff-4a34-a97a-7d08c987d346",
       "type": "file",
       "name": "tsconfig.json",
       "path": "tsconfig.json",
-      "aiDescription": null
+      "aiDescription": null,
+      "imports": [
+        "jsx: react-jsx*",
+        " when a module doesn"
+      ]
     },
     {
-      "id": "585671a0-ac4a-47e2-b48a-531ef8dd1cc6",
+      "id": "b203947b-df49-413b-a950-33b1816c2542",
       "type": "directory",
       "name": "utils",
       "path": "utils",
       "children": [
         {
-          "id": "8eaa095c-6821-46d4-b5c0-c7c315113fae",
+          "id": "6f878c3d-acee-432b-9e1c-1c4ceff19adf",
           "type": "file",
           "name": "JiraImporter.ts",
           "path": "utils/JiraImporter.ts",
-          "aiDescription": null
+          "aiDescription": null,
+          "imports": [
+            "fs",
+            "path",
+            "axios",
+            "https",
+            "dotenv"
+          ]
         }
       ]
     }
