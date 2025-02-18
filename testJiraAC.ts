@@ -1,30 +1,28 @@
-import { importJiraAcceptanceCriteria } from './utils/JiraImporter';
+import { fetchJiraAcceptanceCriteria, appendAcceptanceCriteriaToTestFile } from './utils/JiraImporter';
 import fs from 'fs';
 import path from 'path';
 
-// Define the Jira issue key and test file path
-const issueKey = "CRM-1";
+// Define Jira issues and the Playwright test file path
+const issueKeys = ["CRM-1", "CRM-2", "CRM-3"];
 const testFilePath = path.resolve(__dirname, './tests/crm.spec.ts');
+const allowDuplicates = false; // Set to true to allow multiple AC entries
 
 (async () => {
     try {
-        console.log(`🛠️ Testing Jira AC Importer for issue: ${issueKey}`);
+        console.log(`🛠️ Fetching AC for Jira issues: ${issueKeys.join(', ')}`);
 
-        // Ensure test file exists before running import
+        // Ensure test file exists before appending
         if (!fs.existsSync(testFilePath)) {
             console.log(`📂 Test file not found. Creating: ${testFilePath}`);
             fs.writeFileSync(testFilePath, "// Playwright test file\n", 'utf-8');
         }
 
-        // Run the import function
-        await importJiraAcceptanceCriteria(issueKey, testFilePath);
+        // Fetch and append AC
+        const issues = await fetchJiraAcceptanceCriteria(issueKeys);
+        appendAcceptanceCriteriaToTestFile(testFilePath, issues, allowDuplicates);
 
-        // Read the updated test file content
-        const updatedContent = fs.readFileSync(testFilePath, 'utf-8');
-        console.log(`✅ AC Import Successful! Updated Test File Content:\n`);
-        console.log(updatedContent);
-
+        console.log(`✅ AC Successfully appended to ${testFilePath}!`);
     } catch (error) {
-        console.error(`❌ Test failed:`, error);
+        console.error(`❌ Failed to append AC:`, error);
     }
 })();
