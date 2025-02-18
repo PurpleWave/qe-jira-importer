@@ -51,20 +51,36 @@ function extractAIDescription(filePath: string): string | null {
 // Extract imported file paths from TypeScript/JavaScript files
 function extractImports(filePath: string): string[] {
     const content = fs.readFileSync(filePath, 'utf-8');
-    const importRegex = /import\s+.*?['"](.+?)['"]|require\(['"](.+?)['"]\)/g;
+    
+    // Normalize multi-line imports into a single line
+    const normalizedContent = content.replace(/\n/g, ' ');
+
+    // Updated regex to capture:
+    // 1. Named imports: import { join } from "path";
+    // 2. Default imports: import fs from "fs";
+    // 3. Mixed imports: import fs, { readFileSync } from "fs";
+    // 4. Star imports: import * as fs from "fs";
+    // 5. Require imports: const fs = require("fs");
+    const importRegex = /import\s+(?:([\w*]+)(?:\s*,\s*)?)?(?:{([^}]+)})?\s+from\s+["']([^"']+)["']|require\(["']([^"']+)["']\)/g;
+    
     const imports: string[] = [];
 
     let match;
-    while ((match = importRegex.exec(content)) !== null) {
-        const importPath = match[1] || match[2];
-
-        if (importPath) {
-            imports.push(importPath); // Always record imports, even if they don't resolve
+    while ((match = importRegex.exec(normalizedContent)) !== null) {
+        const [, defaultImport, namedImports, fromPath, requirePath] = match;
+        const resolvedImport = fromPath || requirePath;
+        
+        if (resolvedImport) {
+            imports.push(resolvedImport);
         }
     }
 
     return imports;
 }
+
+
+
+
 
 
 // Load previous scan results
@@ -161,21 +177,31 @@ function resolveImports(node: DirectoryNode) {
     for (const child of node.children) {
         if (child.type === 'file') {
             child.imports = child.imports.map((importPath) => {
-                if (typeof importPath !== 'string') return importPath;
+                if (typeof importPath !== 'string') return importPath; // Already resolved
 
-                // Normalize import path
-                const resolvedPath = path
+                // Skip external module imports like "fs" or "dotenv"
+                if (!importPath.startsWith(".")) return importPath;
+
+                // Normalize and resolve the path correctly
+                let resolvedPath = path
                     .normalize(path.join(path.dirname(child.path), importPath))
-                    .replace(/\\/g, '/') // Normalize Windows paths
-                    .replace(/\.(ts|js|tsx|jsx)$/, ''); // Remove file extensions
+                    .replace(/\\/g, "/") // Normalize Windows paths
+                    .replace(/\.(ts|js|tsx|jsx)?$/, ""); // Remove file extensions
 
+                // Ensure directory-based imports also resolve correctly (e.g., ./config -> ./config/Config)
+                if (!fileMap[resolvedPath]) {
+                    resolvedPath += "/index"; // Handle index.ts cases
+                }
+
+                // Check if resolved path exists in the map
                 return fileMap[resolvedPath] ? { id: fileMap[resolvedPath] } : importPath;
             });
         } else {
-            resolveImports(child);
+            resolveImports(child); // Recursively resolve imports
         }
     }
 }
+
 resolveImports(projectStructure); // 🔥 Call resolveImports() to update references!
 
 // Save updated structure

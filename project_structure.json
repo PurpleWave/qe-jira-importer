@@ -1,11 +1,11 @@
 {
-  "id": "4cec8c8a-41e3-41a6-bce0-27a99f24d1e4",
+  "id": "8e9a45c7-7b00-45b2-bc80-c4dca575698d",
   "type": "directory",
   "name": "BDD-importer",
   "path": "",
   "children": [
     {
-      "id": "2de24aba-d2ec-4d5f-8dd7-eeebadf3c647",
+      "id": "a319873e-da11-442b-ada3-b22e8b885446",
       "type": "file",
       "name": ".env",
       "path": ".env",
@@ -13,19 +13,19 @@
       "imports": []
     },
     {
-      "id": "73bc4318-4316-4a6d-bad3-98a038926c11",
+      "id": "800b0e88-f215-4e57-9226-7435a95e8887",
       "type": "directory",
       "name": ".github",
       "path": ".github",
       "children": [
         {
-          "id": "4f8efba5-34a8-4650-99cc-3f3f9c7083df",
+          "id": "922dfbf5-7374-4724-a08b-40d9e035bf3f",
           "type": "directory",
           "name": "workflows",
           "path": ".github/workflows",
           "children": [
             {
-              "id": "5faf8eb9-d992-409c-85cd-39e1c82a0d1d",
+              "id": "f38fbfbc-10e4-485c-bc9e-239e3ad7d9b1",
               "type": "file",
               "name": "playwright.yml",
               "path": ".github/workflows/playwright.yml",
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "id": "1a7c00f4-e27b-422a-ac40-33e6369696a6",
+      "id": "77929306-046c-4d73-95f6-8e5d5869b65a",
       "type": "file",
       "name": ".gitignore",
       "path": ".gitignore",
@@ -45,7 +45,7 @@
       "imports": []
     },
     {
-      "id": "92d70013-dd5d-456e-a95c-e5994f7ed524",
+      "id": "a3b72215-213b-49c9-9090-b783d3133a5e",
       "type": "file",
       "name": "README.md",
       "path": "README.md",
@@ -53,7 +53,7 @@
       "imports": []
     },
     {
-      "id": "e0686373-1f03-471a-95e2-d7c700901b16",
+      "id": "fc2baed6-36ba-4a4e-84a7-c8d7137eecf4",
       "type": "file",
       "name": "package-lock.json",
       "path": "package-lock.json",
@@ -61,7 +61,7 @@
       "imports": []
     },
     {
-      "id": "b9c251e4-37ee-43c7-a120-cd011db2f53f",
+      "id": "a6a804e3-78f2-4ecf-9156-6d6d8ade12c5",
       "type": "file",
       "name": "package.json",
       "path": "package.json",
@@ -69,7 +69,7 @@
       "imports": []
     },
     {
-      "id": "3536e378-ed42-4803-bacf-d61fe15889e8",
+      "id": "6d135cbd-556c-4048-9e7a-6ebd7f0042a5",
       "type": "file",
       "name": "playwright.config.ts",
       "path": "playwright.config.ts",
@@ -81,7 +81,7 @@
       ]
     },
     {
-      "id": "bfd6796b-08de-4970-b9ed-f90a9b7606b3",
+      "id": "5a5eadf3-d278-4e56-9712-0bd8f2d1da4c",
       "type": "file",
       "name": "project_structure.json",
       "path": "project_structure.json",
@@ -89,31 +89,33 @@
       "imports": []
     },
     {
-      "id": "e7e6bbea-33ff-44b3-b138-ece28268f674",
+      "id": "d1b6473b-0bf4-4b60-893c-4fe2ae325f21",
       "type": "file",
       "name": "scanProject.ts",
       "path": "scanProject.ts",
       "aiDescription": null,
       "imports": [
-        "fs",
+        "uuid",
         "path",
-        "uuid"
+        "fs",
+        "fs",
+        "fs"
       ]
     },
     {
-      "id": "bf10934c-5b5b-4f04-8134-dd80e98f7481",
+      "id": "72830110-ed29-4c75-a2e7-67102d68baf9",
       "type": "directory",
       "name": "src",
       "path": "src",
       "children": [
         {
-          "id": "d7cc83a9-8407-47d0-add6-d5b66ca6c6f4",
+          "id": "1f5a577f-6750-46ac-8e53-f2ceb99333ac",
           "type": "directory",
           "name": "config",
           "path": "src/config",
           "children": [
             {
-              "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f",
+              "id": "5d1cc0cd-1975-4084-a211-20e3174c05de",
               "type": "file",
               "name": "Config.ts",
               "path": "src/config/Config.ts",
@@ -128,13 +130,13 @@
           ]
         },
         {
-          "id": "4fb6b61e-7f0b-469f-a769-8bd666e552fd",
+          "id": "509ee6c1-2591-417b-95ff-df4cf7a9f107",
           "type": "directory",
           "name": "formatters",
           "path": "src/formatters",
           "children": [
             {
-              "id": "7ecef550-ed79-42ca-aa39-01b1f1bbee3c",
+              "id": "3b64fed3-8d61-4880-8300-5cd1fb312eb8",
               "type": "file",
               "name": "AcceptanceCriteriaFormatter.ts",
               "path": "src/formatters/AcceptanceCriteriaFormatter.ts",
@@ -144,13 +146,13 @@
           ]
         },
         {
-          "id": "db9cae5b-f110-4036-8a85-5569ef9cde52",
+          "id": "d03eebfb-be87-4514-b096-eba642e236c6",
           "type": "directory",
           "name": "logging",
           "path": "src/logging",
           "children": [
             {
-              "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8",
+              "id": "c8393d49-4d19-4357-ae57-3bec074d0780",
               "type": "file",
               "name": "Logger.ts",
               "path": "src/logging/Logger.ts",
@@ -160,20 +162,20 @@
                 "path",
                 "chalk",
                 {
-                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                  "id": "5d1cc0cd-1975-4084-a211-20e3174c05de"
                 }
               ]
             }
           ]
         },
         {
-          "id": "ffc9b0c5-32ed-4400-8959-c6c0ac47290e",
+          "id": "22d8ea38-b174-49e1-abaa-bf3dce8972ec",
           "type": "directory",
           "name": "logs",
           "path": "src/logs",
           "children": [
             {
-              "id": "0163c6b5-4e4c-43e5-ab78-d55fa57dcc5a",
+              "id": "85754645-2233-44da-ada2-931615327aa2",
               "type": "file",
               "name": "ac_import_2025-02-18T21-23-06-590Z.log",
               "path": "src/logs/ac_import_2025-02-18T21-23-06-590Z.log",
@@ -183,35 +185,35 @@
           ]
         },
         {
-          "id": "b1d42dc5-d869-4ae4-9391-56742bd703b3",
+          "id": "14bd5caa-a395-46d2-a368-1c183d306795",
           "type": "file",
           "name": "main.ts",
           "path": "src/main.ts",
           "aiDescription": null,
           "imports": [
             {
-              "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+              "id": "5d1cc0cd-1975-4084-a211-20e3174c05de"
             },
             {
-              "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+              "id": "c8393d49-4d19-4357-ae57-3bec074d0780"
             },
             {
-              "id": "eb052b9f-d0b5-4091-b936-433c8e20f15b"
+              "id": "25c9e7d6-d1a4-459e-9aa5-9603c45cd9b1"
             },
             {
-              "id": "249d8f1a-31c2-48bf-bff1-6ccd1cd87038"
+              "id": "8f0691fe-082c-4bbe-82ee-318cc2405d39"
             },
             "path"
           ]
         },
         {
-          "id": "6d44f36c-2f46-42c2-b969-d642c1ee0b71",
+          "id": "ca5f5907-bf9a-4200-b495-20d90da1a724",
           "type": "directory",
           "name": "services",
           "path": "src/services",
           "children": [
             {
-              "id": "8195cd11-bf4a-4f5b-8ebc-d4c42f477ff0",
+              "id": "59d6fe63-4674-40bf-ad77-2b44e0798999",
               "type": "file",
               "name": "JiraService.ts",
               "path": "src/services/JiraService.ts",
@@ -220,41 +222,41 @@
                 "axios",
                 "https",
                 {
-                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                  "id": "5d1cc0cd-1975-4084-a211-20e3174c05de"
                 },
                 {
-                  "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+                  "id": "c8393d49-4d19-4357-ae57-3bec074d0780"
                 }
               ]
             },
             {
-              "id": "eb052b9f-d0b5-4091-b936-433c8e20f15b",
+              "id": "25c9e7d6-d1a4-459e-9aa5-9603c45cd9b1",
               "type": "file",
               "name": "ProjectHandler.ts",
               "path": "src/services/ProjectHandler.ts",
               "aiDescription": null,
               "imports": [
                 {
-                  "id": "8195cd11-bf4a-4f5b-8ebc-d4c42f477ff0"
+                  "id": "59d6fe63-4674-40bf-ad77-2b44e0798999"
                 },
                 {
-                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                  "id": "5d1cc0cd-1975-4084-a211-20e3174c05de"
                 },
                 {
-                  "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+                  "id": "c8393d49-4d19-4357-ae57-3bec074d0780"
                 }
               ]
             }
           ]
         },
         {
-          "id": "22fc9356-287c-49ae-af09-0a39d654825f",
+          "id": "d629abb5-faa8-46ba-8687-6811709012ba",
           "type": "directory",
           "name": "tests",
           "path": "src/tests",
           "children": [
             {
-              "id": "6b5a39df-0e63-4e2b-8fdf-98102384ff20",
+              "id": "5a544395-dadf-4094-ab91-15c3ee3b270a",
               "type": "file",
               "name": "crm.spec.ts",
               "path": "src/tests/crm.spec.ts",
@@ -262,7 +264,7 @@
               "imports": []
             },
             {
-              "id": "2ddb6170-8ccf-49ce-ae26-5540a699089c",
+              "id": "f502daea-3c93-40ea-9235-2370eb2daec8",
               "type": "file",
               "name": "example.spec.ts",
               "path": "src/tests/example.spec.ts",
@@ -274,13 +276,13 @@
           ]
         },
         {
-          "id": "c6fb1764-97f7-4643-bacc-87d33f89ae7a",
+          "id": "12ef4630-0e71-4f39-8201-badc01ea8d72",
           "type": "directory",
           "name": "writers",
           "path": "src/writers",
           "children": [
             {
-              "id": "249d8f1a-31c2-48bf-bff1-6ccd1cd87038",
+              "id": "8f0691fe-082c-4bbe-82ee-318cc2405d39",
               "type": "file",
               "name": "FileAppender.ts",
               "path": "src/writers/FileAppender.ts",
@@ -289,13 +291,13 @@
                 "fs",
                 "path",
                 {
-                  "id": "18ae0a1b-88e2-4fd5-8e2d-213f7be8412f"
+                  "id": "5d1cc0cd-1975-4084-a211-20e3174c05de"
                 },
                 {
-                  "id": "f7ab276b-762c-430c-991b-b09b9c0c67e8"
+                  "id": "c8393d49-4d19-4357-ae57-3bec074d0780"
                 },
                 {
-                  "id": "7ecef550-ed79-42ca-aa39-01b1f1bbee3c"
+                  "id": "3b64fed3-8d61-4880-8300-5cd1fb312eb8"
                 }
               ]
             }
@@ -304,27 +306,27 @@
       ]
     },
     {
-      "id": "2825fb73-7a26-45fb-a474-660ea44b5079",
+      "id": "07094fdd-3d86-4922-9440-a5cacad18bd6",
       "type": "file",
       "name": "testJiraAC.ts",
       "path": "testJiraAC.ts",
       "aiDescription": null,
       "imports": [
         {
-          "id": "6f878c3d-acee-432b-9e1c-1c4ceff19adf"
+          "id": "470cfb09-900c-4b50-b440-58ab43cdc4a5"
         },
         "fs",
         "path"
       ]
     },
     {
-      "id": "517936c1-a37c-453c-8603-ce5d11c27580",
+      "id": "85279633-9b6e-4c2c-8a87-8e226b5a00a8",
       "type": "directory",
       "name": "tests",
       "path": "tests",
       "children": [
         {
-          "id": "2f92a053-872a-43be-82d1-f5292b49c6d9",
+          "id": "f3c6ed43-8bf9-4c89-997a-77607dfff352",
           "type": "file",
           "name": "crm.spec.ts",
           "path": "tests/crm.spec.ts",
@@ -332,7 +334,7 @@
           "imports": []
         },
         {
-          "id": "86629301-1311-453d-9fe5-70f6e91ce743",
+          "id": "6d252341-6e82-4982-8a8f-66a62122214a",
           "type": "file",
           "name": "example.spec.ts",
           "path": "tests/example.spec.ts",
@@ -344,13 +346,13 @@
       ]
     },
     {
-      "id": "5aa02c48-af19-4332-b659-46bc6a76f965",
+      "id": "548abca2-7502-48a5-acd0-ca017201d0f0",
       "type": "directory",
       "name": "tests-examples",
       "path": "tests-examples",
       "children": [
         {
-          "id": "99ee5eae-8f0a-4e5e-8461-ac488629059d",
+          "id": "27afdd66-66d7-488d-b063-fcf6c15e7a28",
           "type": "file",
           "name": "demo-todo-app.spec.ts",
           "path": "tests-examples/demo-todo-app.spec.ts",
@@ -362,24 +364,21 @@
       ]
     },
     {
-      "id": "fc9fabad-9dff-4a34-a97a-7d08c987d346",
+      "id": "804a7886-7d80-46ab-80fe-9274c48c1272",
       "type": "file",
       "name": "tsconfig.json",
       "path": "tsconfig.json",
       "aiDescription": null,
-      "imports": [
-        "jsx: react-jsx*",
-        " when a module doesn"
-      ]
+      "imports": []
     },
     {
-      "id": "b203947b-df49-413b-a950-33b1816c2542",
+      "id": "6e93c876-a578-48d7-ad33-e63c44f214d7",
       "type": "directory",
       "name": "utils",
       "path": "utils",
       "children": [
         {
-          "id": "6f878c3d-acee-432b-9e1c-1c4ceff19adf",
+          "id": "470cfb09-900c-4b50-b440-58ab43cdc4a5",
           "type": "file",
           "name": "JiraImporter.ts",
           "path": "utils/JiraImporter.ts",
