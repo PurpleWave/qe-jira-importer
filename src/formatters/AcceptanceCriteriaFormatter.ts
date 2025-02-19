@@ -1,34 +1,38 @@
-/**
- * Formats Jira Acceptance Criteria (AC) into structured Playwright tests.
- */
+import { test } from '@playwright/test';
+import { testProfiles } from '../config/testProfiles';
+
 export class AcceptanceCriteriaFormatter {
-    /**
-     * Formats a Jira issue's AC into a structured Playwright test template.
-     * @param issue Jira issue object
-     * @param pageName The name of the Page Object Model (POM) class
-     * @returns Formatted Playwright test suite as a string
-     */
-    public static format(issue: { key: string; title: string; acceptanceCriteria: string }, pageName: string): string {
-        // Log the original acceptance criteria format
-        console.log("Original Acceptance Criteria:\n", issue.acceptanceCriteria);
+  public static format(issue: { key: string; title: string; acceptanceCriteria: string }, appName: string): string {
+    const profile = testProfiles[appName]; 
+    if (!profile) throw new Error(`Test profile for ${appName} not found`);
 
-        // Format the Acceptance Criteria as a structured comment
-        const formattedAC = issue.acceptanceCriteria
-            .split("\n")
-            .map((line) => ` * - [ ] ${line.trim()}`) // Converts to checklist format
-            .join("\n");
+    // ✅ Format Jira Acceptance Criteria as a checklist
+    const formattedAC = issue.acceptanceCriteria
+      .split("\n")
+      .map(line => ` * - [ ] ${line.trim()}`)
+      .join("\n");
 
-        return `
-test.describe('${issue.title} @${issue.key}', () => {
-    /**
-     * Acceptance Criteria:
+    // ✅ Generate Describe Block Header
+    const describeBlockHeader = profile.topLevelDescribe(issue.title, issue.key);
+
+    // ✅ Convert Jira AC into test steps
+    const testSteps = issue.acceptanceCriteria
+      .split("\n")
+      .map((step, index) => `await step${index + 1}(page);`);
+
+    // ✅ Generate and return a formatted test block (no file modification)
+    return `
+${describeBlockHeader}
+  /**
+   * Acceptance Criteria:
 ${formattedAC}
-     */
+   */
 
-    test('Navigate to ${pageName}', async ({ page }) => {
-        expect(true).toBe(true); // Placeholder test assertion
-    });
+  ${profile.testBlock(issue.title, testSteps)}
+
+  ${profile.afterEach()}
+  ${profile.afterAll()}
 });
-        `.trim(); // Trim any extra spaces
-    }
+    `.trim();
+  }
 }

@@ -1,8 +1,8 @@
 import fs from "fs";
-import path from "path";
 import { Config } from "../config/Config";
 import { Logger } from "../logging/Logger";
 import { AcceptanceCriteriaFormatter } from "../formatters/AcceptanceCriteriaFormatter";
+import { testProfiles } from '../config/testProfiles';
 
 /**
  * Handles writing formatted AC to Playwright test files.
@@ -11,13 +11,15 @@ export class FileAppender {
     private static logger = new Logger();
 
     /**
-     * Appends formatted AC to `crm.spec.ts`, inserting before `@TESTGEN` or at the bottom.
+     * Appends formatted AC to Playwright test files, updating existing tests or inserting before `@TESTGEN`.
      * @param issues Jira issues with AC
      * @param testFilePath Path to the Playwright test file
+     * @param appName The application profile name
      */
     public static appendAcceptanceCriteria(
         issues: { key: string; title: string; acceptanceCriteria: string }[],
-        testFilePath: string
+        testFilePath: string,
+        appName: string
     ): void {
         if (issues.length === 0) {
             this.logger.log("info", "⚠️ No AC to append.");
@@ -28,49 +30,66 @@ export class FileAppender {
             ? fs.readFileSync(testFilePath, "utf-8")
             : "// Playwright test file\n";
 
-        const testGenMarker = "@TESTGEN";
+        const testGenMarker = "// @TESTGEN";
         let addedIssues: string[] = [];
 
-        // Sort issues numerically (CRM-1, CRM-2, etc.)
-        const sortedIssues = issues.sort((a, b) => {
-            const numA = parseInt(a.key.replace(/\D/g, ""), 10);
-            const numB = parseInt(b.key.replace(/\D/g, ""), 10);
-            return numA - numB;
-        });
+        // ✅ Extract existing test blocks
+        const existingTests: Record<string, string> = {};
+        const describeRegex = /test\.describe\('(.+?) @(.+?)', \(\) => \{([\s\S]*?)\n\}\);/gm;
+        let match;
+        while ((match = describeRegex.exec(testFileContent)) !== null) {
+            existingTests[match[2]] = match[0]; // Store full existing test block
+        }
 
-        // Format ACs in sorted order
-        const formattedACs = sortedIssues.map(issue => {
-            const formattedAC = AcceptanceCriteriaFormatter.format(issue, "Demo");
+        // ✅ Extract Existing Imports
+        const importRegex = /^import .+?;$/gm;
+        const existingImports = new Set(testFileContent.match(importRegex) || []);
 
-            // Prevent duplicates unless allow-duplicates flag is set
-            if (!Config.ALLOW_DUPLICATES && testFileContent.includes(formattedAC.trim())) {
-                this.logger.log("debug", `⚠️ Skipping duplicate AC for ${issue.key}`);
-                return null;
+        // ✅ Collect All Needed Test Blocks
+        let formattedTests: string[] = [];
+        let newImports = new Set<string>();
+
+        issues.forEach(issue => {
+            const formattedAC = AcceptanceCriteriaFormatter.format(issue, appName);
+            const profile = testProfiles[appName];
+
+            // ✅ Ensure imports are included only once
+            profile.imports.forEach(imp => newImports.add(imp));
+
+            if (existingTests[issue.key]) {
+                testFileContent = testFileContent.replace(existingTests[issue.key], formattedAC);
+            } else {
+                formattedTests.push(formattedAC);
             }
 
             addedIssues.push(issue.key);
-            return formattedAC;
-        }).filter(Boolean); // Remove null entries from skipped duplicates
+        });
 
-        if (formattedACs.length > 0) {
-            let updatedContent = testFileContent;
+        // ✅ Rebuild file content
+        let finalContent = `${[...existingImports, ...newImports].join("\n")}\n\n`;
 
-            if (testFileContent.includes(testGenMarker)) {
-                const markerRegex = /(\/\/\s*@TESTGEN[^\n]*)/g;
-                updatedContent = testFileContent.replace(
-                    markerRegex,
-                    `${formattedACs.join("\n\n")}\n\n$1`
-                );
-            } else {
-                updatedContent += `\n\n${formattedACs.join("\n\n")}`;
-            }
+        // ✅ Ensure lifecycle hooks are only added once
+        if (!testFileContent.includes("test.beforeAll(")) {
+            const profile = testProfiles[appName];
+            finalContent += `${profile.beforeAll()}\n${profile.beforeEach()}\n\n`;
+        }
 
-            if (!Config.DRY_RUN) {
-                fs.writeFileSync(testFilePath, updatedContent, "utf-8");
-                this.logger.log("info", `✅ AC for ${addedIssues.length} issue(s) appended to ${testFilePath} in numerical order.`);
-            } else {
-                this.logger.log("info", "🔍 Dry Run: AC would be written to file.");
-            }
+        // ✅ Insert updated tests
+        const testGenIndex = testFileContent.indexOf(testGenMarker);
+        if (testGenIndex !== -1) {
+            finalContent += testFileContent.substring(0, testGenIndex).trim();
+            finalContent += `\n\n${formattedTests.join("\n\n")}\n\n${testGenMarker}`;
+        } else {
+            finalContent += testFileContent.trim();
+            finalContent += `\n\n${formattedTests.join("\n\n")}`;
+        }
+
+        // ✅ Write final output once
+        if (!Config.DRY_RUN) {
+            fs.writeFileSync(testFilePath, finalContent, "utf-8");
+            this.logger.log("info", `✅ AC for ${addedIssues.length} issue(s) appended to ${testFilePath}.`);
+        } else {
+            this.logger.log("info", "🔍 Dry Run: AC would be written to file.");
         }
     }
 }

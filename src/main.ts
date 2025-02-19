@@ -23,7 +23,7 @@ async function main() {
     }
 
     // Append AC to Playwright test file
-    FileAppender.appendAcceptanceCriteria(issues, testFilePath);
+    FileAppender.appendAcceptanceCriteria(issues, testFilePath, "CRM");
 
     logger.log("info", `✅ AC extraction complete!`);
 }
