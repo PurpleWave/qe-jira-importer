@@ -27,11 +27,16 @@ ${describeBlockHeader}
    * Acceptance Criteria:
 ${formattedAC}
    */
+    ${profile.beforeAll()}
 
-  ${profile.testBlock(issue.title, testSteps)}
+    ${profile.beforeEach()}
 
-  ${profile.afterEach()}
-  ${profile.afterAll()}
+    ${profile.afterEach()}
+
+    ${profile.afterAll()}
+
+    ${profile.testBlock(issue.title, testSteps)}
+
 });
     `.trim();
   }

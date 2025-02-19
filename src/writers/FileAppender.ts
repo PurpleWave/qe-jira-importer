@@ -68,12 +68,6 @@ export class FileAppender {
         // ✅ Rebuild file content
         let finalContent = `${[...existingImports, ...newImports].join("\n")}\n\n`;
 
-        // ✅ Ensure lifecycle hooks are only added once
-        if (!testFileContent.includes("test.beforeAll(")) {
-            const profile = testProfiles[appName];
-            finalContent += `${profile.beforeAll()}\n${profile.beforeEach()}\n\n`;
-        }
-
         // ✅ Insert updated tests
         const testGenIndex = testFileContent.indexOf(testGenMarker);
         if (testGenIndex !== -1) {

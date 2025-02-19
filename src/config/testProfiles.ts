@@ -53,7 +53,7 @@ export const testProfiles: Record<string, TestProfile> = {
 
       testBlock: (testName: string, steps: string[]) => `
         test('${testName}', async ({ page }) => {
-          ${steps.map(step => `await ${step};`).join('\n')}
+          ${steps.map(step => `${step}`).join('\n')}
         });
       `,
 
