@@ -40,7 +40,7 @@ export class FileAppender {
 
         // Format ACs in sorted order
         const formattedACs = sortedIssues.map(issue => {
-            const formattedAC = AcceptanceCriteriaFormatter.format(issue);
+            const formattedAC = AcceptanceCriteriaFormatter.format(issue, "Demo");
 
             // Prevent duplicates unless allow-duplicates flag is set
             if (!Config.ALLOW_DUPLICATES && testFileContent.includes(formattedAC.trim())) {
