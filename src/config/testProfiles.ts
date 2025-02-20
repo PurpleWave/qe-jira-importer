@@ -18,6 +18,8 @@ export interface TestProfile {
 
 // ✅ Define testProfiles as an indexed object
 export const testProfiles: Record<string, TestProfile> = {
+    
+    // DEMO PROFILE
     CRM: {
       imports: [
         `import { test, expect } from '@playwright/test';`,
@@ -66,5 +68,180 @@ export const testProfiles: Record<string, TestProfile> = {
         testTitleFromIssue: true,
         stepsFromJira: true
       }
-    }
+    },
+
+    // Inventory Management System Profile
+    IMS: {
+        imports: [
+          `import { test, expect } from '@playwright/test';`,
+          `import { setupDemo } from '../utils/DemoSetup';`
+        ],
+        
+        topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
+          `test.describe('${jiraTitle} @${jiraKey}', () => {`, // ✅ JIRA title + issue key
+        
+        beforeAll: () => `
+          test.beforeAll(async ({ browser }) => {
+            console.log('Initializing test suite...');
+          });
+        `,
+  
+        afterAll: () => `
+          test.afterAll(async () => {
+            console.log('Cleaning up test suite...');
+          });
+        `,
+  
+        beforeEach: () => `
+          test.beforeEach(async ({ page }) => {
+            await setupDemo(page);
+          });
+        `,
+  
+        afterEach: () => `
+          test.afterEach(async ({ page }) => {
+            console.log('Resetting test state...');
+          });
+        `,
+  
+        testBlock: (testName: string, steps: string[]) => `
+          test('${testName}', async ({ page }) => {
+            ${steps.map(step => `${step}`).join('\n')}
+          });
+        `,
+  
+        timeout: 20000,
+        retries: 2,
+  
+        jiraMapping: {
+          epicAsDescribe: false,  // ✅ No longer grouping by epic
+          storyAsNestedDescribe: false, // ✅ No nested describes
+          testTitleFromIssue: true,
+          stepsFromJira: true
+        }
+      },
+
+      CLIQ: {
+        imports: [
+          `import { test, expect } from '@playwright/test';`,
+          `import { setupDemo } from '../utils/DemoSetup';`
+        ],
+        
+        topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
+          `test.describe('${jiraTitle} @${jiraKey}', () => {`, // ✅ JIRA title + issue key
+        
+        beforeAll: () => `
+          test.beforeAll(async ({ browser }) => {
+            console.log('Initializing test suite...');
+          });
+        `,
+  
+        afterAll: () => `
+          test.afterAll(async () => {
+            console.log('Cleaning up test suite...');
+          });
+        `,
+  
+        beforeEach: () => `
+          test.beforeEach(async ({ page }) => {
+            await setupDemo(page);
+          });
+        `,
+  
+        afterEach: () => `
+          test.afterEach(async ({ page }) => {
+            console.log('Resetting test state...');
+          });
+        `,
+  
+        testBlock: (testName: string, steps: string[]) => `
+          test('${testName}', async ({ page }) => {
+            ${steps.map(step => `${step}`).join('\n')}
+          });
+        `,
+  
+        timeout: 20000,
+        retries: 2,
+  
+        jiraMapping: {
+          epicAsDescribe: false,  // ✅ No longer grouping by epic
+          storyAsNestedDescribe: false, // ✅ No nested describes
+          testTitleFromIssue: true,
+          stepsFromJira: true
+        }
+      },
+
+      // Purple Wave Profile
+      /**
+       * This profile is for the Purple Wave project.
+       * It includes the necessary imports, test lifecycle hooks, and test block formatting.
+       * It also includes the Jira mapping configuration for this project.
+       * 
+       * @see {@link TestProfile}
+       * @see {@link testProfiles}
+       * @see {@link AcceptanceCriteriaFormatter}
+       * @see {@link FileAppender}
+       * @see {@link ProjectHandler}
+       * @see {@link Logger}
+       * @see {@link Config}
+       * @see {@link main}
+       * 
+       * @version 1.0.0
+       * 
+       * @example
+       * // Import the Purple Wave test profile
+       * import { testProfiles } from '../config/testProfiles';
+       * 
+       * // Use the Purple Wave test profile
+       * const profile = testProfiles['PW'];
+       */
+      PW: {
+        imports: [
+          `import { test, expect } from '@playwright/test';`,
+          `import { setupDemo } from '../utils/DemoSetup';`
+        ],
+        
+        topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
+          `test.describe('${jiraTitle} @${jiraKey}', () => {`, // ✅ JIRA title + issue key
+        
+        beforeAll: () => `
+          test.beforeAll(async ({ browser }) => {
+            console.log('Initializing test suite...');
+          });
+        `,
+  
+        afterAll: () => `
+          test.afterAll(async () => {
+            console.log('Cleaning up test suite...');
+          });
+        `,
+  
+        beforeEach: () => `
+          test.beforeEach(async ({ page }) => {
+            await setupDemo(page);
+          });
+        `,
+  
+        afterEach: () => `
+          test.afterEach(async ({ page }) => {
+            console.log('Resetting test state...');
+          });
+        `,
+  
+        testBlock: (testName: string, steps: string[]) => `
+          test('${testName}', async ({ page }) => {
+            ${steps.map(step => `${step}`).join('\n')}
+          });
+        `,
+  
+        timeout: 20000,
+        retries: 2,
+  
+        jiraMapping: {
+          epicAsDescribe: false,  // ✅ No longer grouping by epic
+          storyAsNestedDescribe: false, // ✅ No nested describes
+          testTitleFromIssue: true,
+          stepsFromJira: true
+        }
+      }
 };
