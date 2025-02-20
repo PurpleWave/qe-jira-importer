@@ -71,10 +71,34 @@ export const testProfiles: Record<string, TestProfile> = {
     },
 
     // Inventory Management System Profile
+    /**
+     * This profile is for the Inventory Management System project.
+     * It includes the necessary imports, test lifecycle hooks, and test block formatting.
+     * It also includes the Jira mapping configuration for this project.
+     * 
+     * @see {@link TestProfile}
+     * @see {@link testProfiles}
+     * @see {@link AcceptanceCriteriaFormatter}
+     * @see {@link FileAppender}
+     * @see {@link ProjectHandler}
+     * @see {@link Logger}
+     * @see {@link Config}
+     * @see {@link main}
+     * 
+     * @since 1.0.0
+     * @version 1.0.0
+     * 
+     * @example
+     * // Import the IMS test profile
+     * import { testProfiles } from '../config/testProfiles';
+     * 
+     * // Use the IMS test profile
+     * const profile = testProfiles['IMS'];
+     */
     IMS: {
         imports: [
           `import { test, expect } from '@playwright/test';`,
-          `import { setupDemo } from '../utils/DemoSetup';`
+          `import { setupDemoIMS } from '../utils/DemoSetupIMS';`
         ],
         
         topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
@@ -94,7 +118,7 @@ export const testProfiles: Record<string, TestProfile> = {
   
         beforeEach: () => `
           test.beforeEach(async ({ page }) => {
-            await setupDemo(page);
+            await setupDemoIMS(page);
           });
         `,
   
@@ -121,10 +145,34 @@ export const testProfiles: Record<string, TestProfile> = {
         }
       },
 
+      /**
+       * This profile is for the CLIQ project.
+       * It includes the necessary imports, test lifecycle hooks, and test block formatting.
+       * It also includes the Jira mapping configuration for this project.
+       * 
+       * @see {@link TestProfile}
+       * @see {@link testProfiles}
+       * @see {@link AcceptanceCriteriaFormatter}
+       * @see {@link FileAppender}
+       * @see {@link ProjectHandler}
+       * @see {@link Logger}
+       * @see {@link Config}
+       * @see {@link main}
+       * 
+       * @since 1.0.0
+       * @version 1.0.0
+       * 
+       * @example
+       * // Import the CLIQ test profile
+       * import { testProfiles } from '../config/testProfiles';
+       * 
+       * // Use the CLIQ test profile
+       * const profile = testProfiles['CLIQ'];
+       */
       CLIQ: {
         imports: [
           `import { test, expect } from '@playwright/test';`,
-          `import { setupDemo } from '../utils/DemoSetup';`
+          `import { setupDemoCliq } from '../utils/DemoSetupCliq';`
         ],
         
         topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
@@ -144,7 +192,7 @@ export const testProfiles: Record<string, TestProfile> = {
   
         beforeEach: () => `
           test.beforeEach(async ({ page }) => {
-            await setupDemo(page);
+            await setupDemoCLIQ(page);
           });
         `,
   
@@ -171,7 +219,6 @@ export const testProfiles: Record<string, TestProfile> = {
         }
       },
 
-      // Purple Wave Profile
       /**
        * This profile is for the Purple Wave project.
        * It includes the necessary imports, test lifecycle hooks, and test block formatting.
@@ -186,6 +233,7 @@ export const testProfiles: Record<string, TestProfile> = {
        * @see {@link Config}
        * @see {@link main}
        * 
+       * @since 1.0.0
        * @version 1.0.0
        * 
        * @example
@@ -198,7 +246,7 @@ export const testProfiles: Record<string, TestProfile> = {
       PW: {
         imports: [
           `import { test, expect } from '@playwright/test';`,
-          `import { setupDemo } from '../utils/DemoSetup';`
+          `import { setupDemoPW } from '../utils/DemoSetupPW';`
         ],
         
         topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
@@ -218,7 +266,7 @@ export const testProfiles: Record<string, TestProfile> = {
   
         beforeEach: () => `
           test.beforeEach(async ({ page }) => {
-            await setupDemo(page);
+            await setupDemoPW(page);
           });
         `,
   
