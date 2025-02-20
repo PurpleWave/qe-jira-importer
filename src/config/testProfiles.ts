@@ -17,6 +17,29 @@ export interface TestProfile {
 }
 
 // ✅ Define testProfiles as an indexed object
+/**
+ * This object contains test profiles for different projects.
+ * Each profile includes the necessary imports, test lifecycle hooks, and test block formatting.
+ * It also includes the Jira mapping configuration for each project.
+ * 
+ * @see {@link TestProfile}
+ * @see {@link AcceptanceCriteriaFormatter}
+ * @see {@link FileAppender}
+ * @see {@link ProjectHandler}
+ * @see {@link Logger}
+ * @see {@link Config}
+ * @see {@link main}
+ * 
+ * @since 1.0.0
+ * @version 1.0.0
+ * 
+ * @example
+ * // Import the test profiles
+ * import { testProfiles } from '../config/testProfiles';
+ * 
+ * // Use the CRM test profile
+ * const profile = testProfiles['CRM'];
+ */
 export const testProfiles: Record<string, TestProfile> = {
     
     // DEMO PROFILE
