@@ -3,6 +3,7 @@ import { Config } from "../config/Config";
 import { Logger } from "../logging/Logger";
 import { AcceptanceCriteriaFormatter } from "../formatters/AcceptanceCriteriaFormatter";
 import { testProfiles } from '../config/testProfiles';
+import { FileScanner } from "./FileScanner";
 
 /**
  * Handles writing formatted AC to Playwright test files.
@@ -27,42 +28,31 @@ export class FileAppender {
             return;
         }
 
-        // Read the existing test file content or initialize with a default comment
-        let testFileContent = fs.existsSync(testFilePath)
-            ? fs.readFileSync(testFilePath, "utf-8")
-            : "// Playwright test file\n";      // TODO: Add default imports
+        const { content, existingTests, existingImports, testGenMarkerIndex } = FileScanner.scanTestFile(testFilePath);
 
-        // Marker to insert new tests before if it exists in the file content
-        const testGenMarker = "// @TESTGEN";
+        let updatedContent = content;
         let addedIssues: string[] = [];
-
-        // Extract existing test blocks using regex
-        const existingTests: Record<string, string> = {};
-        const describeRegex = /test\.describe\('(.+?) @(.+?)', \(\) => \{([\s\S]*?)\n\}\);/gm;
-        let match;
-        while ((match = describeRegex.exec(testFileContent)) !== null) {
-            existingTests[match[2]] = match[0]; // Store full existing test block
-        }
-
-        // Extract existing import statements using regex
-        const importRegex = /^import .+?;$/gm;
-        const existingImports = new Set(testFileContent.match(importRegex) || []);
-        console.log(existingImports);
-        
-        // Collect all needed test blocks and new imports
         let formattedTests: string[] = [];
-        let newImports = new Set<string>();
-        
+
+        // Ensure we don't re-add existing imports
+        let newImports = new Set<string>(existingImports);
+        console.log("FILE APPENDER New Imports:", Array.from(newImports));
+
+
         issues.forEach(issue => {
             const formattedAC = AcceptanceCriteriaFormatter.format(issue, appName);
             const profile = testProfiles[appName];
 
-            // Ensure imports are included only once
-            profile.imports.forEach(imp => newImports.add(imp));
+            // Only add imports if they are not already present
+            profile.imports.forEach(imp => {
+                if (!existingImports.has(imp)) {
+                    newImports.add(imp);
+                }
+            });
 
             if (existingTests[issue.key]) {
                 // Replace existing test block with updated AC
-                testFileContent = testFileContent.replace(existingTests[issue.key], formattedAC);
+                updatedContent = updatedContent.replace(existingTests[issue.key], formattedAC);
             } else {
                 // Add new formatted test block
                 formattedTests.push(formattedAC);
@@ -70,19 +60,49 @@ export class FileAppender {
 
             addedIssues.push(issue.key);
         });
-        /** */
-        // Rebuild file content with updated imports and tests
-        let finalContent = `${[...existingImports, ...newImports].join("\n")}\n\n`;
 
-        // Insert updated tests before the test generation marker if it exists
-        const testGenIndex = testFileContent.indexOf(testGenMarker);
-        if (testGenIndex !== -1) {
-            finalContent += testFileContent.substring(0, testGenIndex).trim();
-            finalContent += `\n\n${formattedTests.join("\n\n")}\n\n${testGenMarker}`;
-        } else {
-            finalContent += testFileContent.trim();
-            finalContent += `\n\n${formattedTests.join("\n\n")}`;
+// Step 1: Convert newImports into a sorted, unique string
+console.log("Step 1: Original Imports Set:", newImports);
+let finalImports = [...newImports].sort().join("\n");
+console.log("Step 1 Result: Sorted Unique Imports:\n", finalImports);
+
+// Step 2: Initialize an array to hold the final content
+let finalContentArray: string[] = [];
+console.log("Step 2: Initialized Final Content Array:", finalContentArray);
+
+// Step 3: Add imports first, preventing duplication
+if (finalImports.trim()) {
+    finalContentArray.push(finalImports);
+    console.log("Step 3: Added Final Imports to Content Array:", finalContentArray);
+} else {
+    console.log("Step 3: No imports to add");
+}
+
+// Step 4: Add the updated file content without modifying structure
+console.log("Step 4: Original Updated Content:\n", updatedContent);
+if (updatedContent.trim()) {
+    finalContentArray.push(updatedContent.trim());
+    console.log("Step 4 Result: Added Updated Content to Content Array:", finalContentArray);
+} else {
+    console.log("Step 4: No updated content to add");
+}
+
+// Step 5: Log the final assembled content
+
+
+
+        // Handle @TESTGEN marker placement
+        if (testGenMarkerIndex !== -1) {
+            let beforeMarker = updatedContent.substring(0, testGenMarkerIndex).trim();
+            let afterMarker = formattedTests.length > 0 ? `\n\n${formattedTests.join("\n\n")}` : "";
+            finalContentArray.push(beforeMarker + afterMarker + "\n\n// @TESTGEN");
+        } else if (formattedTests.length > 0) {
+            finalContentArray.push(formattedTests.join("\n\n"));
         }
+
+        // Join everything with a single newline separator to avoid extra blank lines
+        let finalContent = finalContentArray.join("\n\n").trim() + "\n";
+        // console.log("Step 5: Final Rebuilt File Content:\n", finalContent);
 
         // Write final output to the file if not in dry run mode
         if (!Config.DRY_RUN) {

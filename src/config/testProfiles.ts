@@ -1,5 +1,10 @@
+export interface ImportStatement {
+  imports: string[]; // Array of individual named imports
+  module: string; // Module path
+}
+
 export interface TestProfile {
-    imports: string[];
+  imports: ImportStatement[];
     topLevelDescribe: (jiraTitle: string, jiraKey: string) => string;
     beforeAll: () => string;
     afterAll: () => string;
@@ -45,9 +50,9 @@ export const testProfiles: Record<string, TestProfile> = {
     // DEMO PROFILE
     CRM: {
       imports: [
-        `import { test, expect } from '@playwright/test';`,
-        `import { setupDemo } from '../utils/DemoSetup';`
-      ],
+        { imports: ["test", "expect"], module: "@playwright/test" },
+        { imports: ["setupDemo"], module: "../utils/DemoSetup" }
+    ],
       
       topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
         `test.describe('${jiraTitle} @${jiraKey}', () => {`, // ✅ JIRA title + issue key
@@ -119,10 +124,10 @@ export const testProfiles: Record<string, TestProfile> = {
      * const profile = testProfiles['IMS'];
      */
     IMS: {
-        imports: [
-          `import { test, expect } from '@playwright/test';`,
-          `import { setupDemoIMS } from '../utils/DemoSetupIMS';`
-        ],
+      imports: [
+        { imports: ["test", "expect"], module: "@playwright/test" },
+        { imports: ["setupDemoIMS"], module: "../utils/DemoSetupIMS" }
+    ],
         
         topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
           `test.describe('${jiraTitle} @${jiraKey}', () => {`, // ✅ JIRA title + issue key
@@ -194,9 +199,9 @@ export const testProfiles: Record<string, TestProfile> = {
        */
       CLIQ: {
         imports: [
-          `import { test, expect } from '@playwright/test';`,
-          `import { setupDemoCliq } from '../utils/DemoSetupCliq';`
-        ],
+          { imports: ["test", "expect"], module: "@playwright/test" },
+          { imports: ["setupDemoCLIQ"], module: "../utils/DemoSetupCLIQ" }
+      ],
         
         topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
           `test.describe('${jiraTitle} @${jiraKey}', () => {`, // ✅ JIRA title + issue key
@@ -268,9 +273,9 @@ export const testProfiles: Record<string, TestProfile> = {
        */
       PW: {
         imports: [
-          `import { test, expect } from '@playwright/test';`,
-          `import { setupDemoPW } from '../utils/DemoSetupPW';`
-        ],
+          { imports: ["test", "expect"], module: "@playwright/test" },
+          { imports: ["setupDemoPW"], module: "../utils/DemoSetupPW" }
+      ],
         
         topLevelDescribe: (jiraTitle: string, jiraKey: string) => 
           `test.describe('${jiraTitle} @${jiraKey}', () => {`, // ✅ JIRA title + issue key

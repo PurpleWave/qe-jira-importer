@@ -1,10 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { setupDemo } from '../utils/DemoSetup';
 
-/**
- * THIS IS A TEST FOR THE JIRA IMPORTER
- */
-
 test.describe('(Sample) User Management @CRM-2', () => {
   /**
    * Acceptance Criteria:
@@ -227,4 +223,4 @@ test.describe('(Sample) User Role Assignment @CRM-5', () => {
 
 });
 
-// @TESTGEN
+// @TESTGEN - for AI generated scaffolding
